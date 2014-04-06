@@ -48,9 +48,10 @@ $(document).ready(function() {
   socket.on('rooms', function(rooms) {
     $('#room-list').empty();
     for(var room in rooms) {
+      var peopleCount = rooms[room].length;
       room = room.substring(1, room.length);
-      if (room != '') {
-        $('#room-list').append(divEscapedContentElement(room));
+      if (room !== '') {
+        $('#room-list').append(divEscapedContentElement(room + ' (' + peopleCount + ')'));
       }
     }
     $('#room-list div').click(function() {
