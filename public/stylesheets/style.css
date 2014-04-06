@@ -38,6 +38,10 @@ a {
   border-bottom: 1px solid #eee;
 }
 
+#room-list span.people-count {
+  margin-left: 5px ;
+}
+
 #room-list div:hover {
   background-color: #ddd;
 }

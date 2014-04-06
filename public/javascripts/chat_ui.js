@@ -1,5 +1,21 @@
-function divEscapedContentElement(message) {
-  return $('<div></div>').text(message);
+function divEscapedContentElement(message, divClass) {
+  if (divClass !== undefined) {
+    return $('<div class="' + divClass + '"></div>').text(message);  
+  } else {
+    return $('<div></div>').text(message);
+  }
+}
+
+function spanEscapedContentElement(message, spanClass) {
+  if (spanClass !== undefined) {
+    return $('<span class="' + spanClass + '"></span>').text(message);  
+  } else {
+    return $('<span></span>').text(message);
+  }
+}
+
+function stringfy(element) {
+  return $("<div />").append(element.clone()).html();
 }
 
 function divSystemContentElement(message) {
@@ -51,11 +67,14 @@ $(document).ready(function() {
       var peopleCount = rooms[room].length;
       room = room.substring(1, room.length);
       if (room !== '') {
-        $('#room-list').append(divEscapedContentElement(room + ' (' + peopleCount + ')'));
+        $('#room-list').append($('<div></div>').html(
+          stringfy(spanEscapedContentElement(room, 'room-name')) + 
+          stringfy(spanEscapedContentElement('(' + peopleCount + ')', 'people-count'))
+          ));
       }
     }
     $('#room-list div').click(function() {
-      chatApp.processCommand('/join ' + $(this).text());
+      chatApp.processCommand('/join ' + $(this).children(':first').text());
       $('#send-message').focus();
     });
   });
